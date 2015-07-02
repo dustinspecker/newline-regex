@@ -1,6 +1,6 @@
 {
   "name": "newline-regex",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Regex for newline characters",
   "main": "index.js",
   "scripts": {
