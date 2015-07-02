@@ -1,6 +1,4 @@
 'use strict';
-import babel from 'gulp-babel';
-import del from 'del';
 import gulp from 'gulp';
 import eslint from 'gulp-eslint';
 import istanbul from 'gulp-istanbul';
@@ -8,18 +6,11 @@ import jscs from 'gulp-jscs';
 import jshint from 'gulp-jshint';
 import mocha from 'gulp-mocha';
 
-const configFiles = './Gulpfiles.js'
-  , srcFiles = 'generator/app/*.js'
-  , templateFiles = ['generator/app/*/*', 'generator/app/*/.travis.yml']
-  , testFiles = 'test.js'
+const configFiles = './gulpfile.babel.js'
+  , srcFiles = 'index.js'
+  , testFiles = 'test.js';
 
-  , destDir = './app';
-
-gulp.task('clean', (cb) => {
-  del(destDir, cb);
-});
-
-gulp.task('lint', ['clean'], () => {
+gulp.task('lint', () => {
   return gulp.src([configFiles, srcFiles, testFiles])
     .pipe(eslint())
     .pipe(eslint.formatEach('./node_modules/eslint-path-formatter'))
@@ -32,24 +23,10 @@ gulp.task('lint', ['clean'], () => {
     .pipe(jshint.reporter('fail'));
 });
 
-gulp.task('compile', ['lint'], () => {
-  return gulp.src(srcFiles, {base: './generator/app/'})
-    .pipe(babel({
-      auxiliaryComment: 'istanbul ignore next',
-      modules: 'common'
-    }))
-    .pipe(gulp.dest(destDir));
-});
-
-gulp.task('copy:templates', ['compile'], () => {
-  return gulp.src(templateFiles, {base: './generator/app/'})
-    .pipe(gulp.dest(destDir));
-});
-
-gulp.task('build', ['copy:templates']);
+gulp.task('build', ['lint']);
 
 gulp.task('test', ['build'], (cb) => {
-  gulp.src([destDir + 'index.js'])
+  gulp.src(['index.js'])
     .pipe(istanbul())
     .pipe(istanbul.hookRequire())
     .on('finish', () => {
