@@ -22,6 +22,10 @@ newlineRegex.test('Windows\r\n');
 
 newlineRegex.test('Nothing');
 // => false
+
+// newlineRegex.g is the regex with a global identifier
+'Unix\n and Windows\r\n'.match(newlineRegex.g).length;
+// => 2
 ```
 
 ## Current Newline Characters Supported
