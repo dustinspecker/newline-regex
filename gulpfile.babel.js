@@ -12,7 +12,7 @@ const configFiles = './gulpfile.babel.js'
   , srcFiles = 'src/*.js'
   , testFiles = 'test.js'
 
-  , destDir = './lib';
+  , destDir = './lib/';
 
 gulp.task('lint', () => {
   return gulp.src([configFiles, srcFiles, testFiles])
@@ -39,7 +39,7 @@ gulp.task('compile', ['lint'], () => {
 gulp.task('build', ['compile']);
 
 gulp.task('test', ['build'], (cb) => {
-  gulp.src(['index.js'])
+  gulp.src([destDir + 'index.js'])
     .pipe(istanbul())
     .pipe(istanbul.hookRequire())
     .on('finish', () => {
