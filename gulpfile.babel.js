@@ -1,4 +1,6 @@
 'use strict';
+import babel from 'gulp-babel';
+import babelCompiler from 'babel';
 import gulp from 'gulp';
 import eslint from 'gulp-eslint';
 import istanbul from 'gulp-istanbul';
@@ -7,8 +9,10 @@ import jshint from 'gulp-jshint';
 import mocha from 'gulp-mocha';
 
 const configFiles = './gulpfile.babel.js'
-  , srcFiles = 'index.js'
-  , testFiles = 'test.js';
+  , srcFiles = 'src/*.js'
+  , testFiles = 'test.js'
+
+  , destDir = './lib';
 
 gulp.task('lint', () => {
   return gulp.src([configFiles, srcFiles, testFiles])
@@ -23,7 +27,16 @@ gulp.task('lint', () => {
     .pipe(jshint.reporter('fail'));
 });
 
-gulp.task('build', ['lint']);
+gulp.task('compile', ['lint'], () => {
+  return gulp.src(srcFiles)
+    .pipe(babel({
+      auxiliaryCommentBefore: 'istanbul ignore next',
+      modules: 'common'
+    }))
+    .pipe(gulp.dest(destDir));
+});
+
+gulp.task('build', ['compile']);
 
 gulp.task('test', ['build'], (cb) => {
   gulp.src(['index.js'])
@@ -31,7 +44,11 @@ gulp.task('test', ['build'], (cb) => {
     .pipe(istanbul.hookRequire())
     .on('finish', () => {
       gulp.src([testFiles])
-        .pipe(mocha())
+        .pipe(mocha({
+          compilers: {
+            js: babelCompiler
+          }
+        }))
         .pipe(istanbul.writeReports())
         .on('end', cb);
     });

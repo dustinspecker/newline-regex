@@ -2,7 +2,7 @@
   "name": "newline-regex",
   "version": "0.2.0",
   "description": "Regex for newline characters",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "prepublish": "npm test",
     "test": "gulp test",
@@ -26,6 +26,7 @@
     "coveralls": "^2.11.2",
     "eslint-path-formatter": "^0.1.1",
     "gulp": "^3.9.0",
+    "gulp-babel": "^5.1.0",
     "gulp-eslint": "^0.15.0",
     "gulp-istanbul": "^0.10.0",
     "gulp-jscs": "^1.6.0",
