@@ -21,7 +21,7 @@
   "homepage": "https://github.com/dustinspecker/newline-regex#readme",
   "dependencies": {},
   "devDependencies": {
-    "babel": "^5.5.6",
+    "babel": "^6.0.0",
     "chai": "^3.0.0",
     "coveralls": "^2.11.2",
     "eslint-config-dustinspecker": "^0.1.0",
