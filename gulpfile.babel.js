@@ -1,6 +1,6 @@
 'use strict';
 import babel from 'gulp-babel';
-import babelCompiler from 'babel';
+import babelCompiler from 'babel-core';
 import gulp from 'gulp';
 import eslint from 'gulp-eslint';
 import istanbul from 'gulp-istanbul';
@@ -29,10 +29,7 @@ gulp.task('lint', () => {
 
 gulp.task('compile', ['lint'], () => {
   return gulp.src(srcFiles)
-    .pipe(babel({
-      auxiliaryCommentBefore: 'istanbul ignore next',
-      modules: 'common'
-    }))
+    .pipe(babel())
     .pipe(gulp.dest(destDir));
 });
 
