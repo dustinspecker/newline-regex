@@ -12,7 +12,10 @@
     "type": "git",
     "url": "git+https://github.com/dustinspecker/newline-regex.git"
   },
-  "keywords": [],
+  "keywords": [
+    "regex",
+    "newline"
+  ],
   "author": "Dustin Specker",
   "license": "MIT",
   "bugs": {
