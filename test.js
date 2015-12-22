@@ -1,5 +1,4 @@
 /* global describe, it */
-/* eslint no-unused-expressions:0 */
 'use strict';
 import {expect} from 'chai';
 import newlineRegex from './lib/';
